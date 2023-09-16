@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->integer('quantity');
             $table->string('attendee_name');
-            // $table->status
+            $table->string('status');
             $table->foreignUuid('ticket_type_id')
                 ->constrained()
                 ->cascadeOnUpdate()

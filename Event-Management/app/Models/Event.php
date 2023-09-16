@@ -12,6 +12,14 @@ class Event extends Model
 {
     use HasFactory, HasUuids;
 
+    const STATUS_OPTIONS = 
+    [
+
+        'drafted' => 'Drafted',
+        'published' => 'Published',
+
+    ];
+
     public function ticketTypes(): HasMany
     {
         return $this->hasMany(TicketType::class);

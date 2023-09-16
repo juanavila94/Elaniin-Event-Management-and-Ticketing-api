@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('purchase_date');
-            // $table->status
+            $table->string('status');
             $table->foreignUuid('attendee_id')
                 ->constrained()
                 ->cascadeOnUpdate()

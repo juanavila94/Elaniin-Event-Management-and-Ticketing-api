@@ -12,6 +12,16 @@ class Order extends Model
 {
     use HasFactory, HasUuids;
 
+    const STATUS_OPTIONS = 
+    [
+        'inProgress' => 'In Progress',
+        'completed' => 'Completed',
+        'underReview' => 'Under Review',
+        'refunded'  => 'Refunded',
+        
+    ];
+
+
     public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);

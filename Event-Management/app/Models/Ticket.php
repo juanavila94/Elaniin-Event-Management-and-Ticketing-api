@@ -11,6 +11,14 @@ class Ticket extends Model
 {
     use HasFactory, HasUuids;
 
+    const STATUS_OPTIONS =
+    [
+        'checkedIn' => 'Checked in',
+        'checkedOut' => 'Checked out',
+        'refunded'  => 'Refunded',
+        'notRefunded' => 'Not refunded',
+    ];
+
     public function ticketTypes(): BelongsTo
     {
         return $this->belongsTo(TicketType::class);

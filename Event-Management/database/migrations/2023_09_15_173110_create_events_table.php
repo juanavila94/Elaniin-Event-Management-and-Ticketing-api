@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->string('location');
             $table->string('header_image');
-            // $table->status
+            $table->string('status')->default('drafted');
             $table->timestamps();
         });
     }
