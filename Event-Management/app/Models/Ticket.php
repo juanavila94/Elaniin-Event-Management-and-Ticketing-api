@@ -11,6 +11,10 @@ class Ticket extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'tickets';
+    protected $guarded = [];
+
+    
     const STATUS_OPTIONS =
     [
         'checkedIn' => 'Checked in',
