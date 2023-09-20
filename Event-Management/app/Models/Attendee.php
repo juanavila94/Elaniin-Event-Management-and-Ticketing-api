@@ -11,6 +11,9 @@ class Attendee extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'attendees';
+    protected $guarded = [];
+
     public function orders(): HasOne
     {
         return $this->hasOne(Order::class);
