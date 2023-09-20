@@ -9,6 +9,8 @@ LARASTAN CHECK
 RUNNING PINT
 ./vendor/bin/sail pint
 
+
+
 ||
 RUTAS
 --Event Planner--
