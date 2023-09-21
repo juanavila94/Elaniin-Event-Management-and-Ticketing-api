@@ -12,13 +12,13 @@ class Order extends Model
 {
     use HasFactory, HasUuids;
 
-    const STATUS_OPTIONS = 
+    const STATUS_OPTIONS =
     [
-        'inProgress' => 'In Progress',
+        'active' => 'Active',
         'completed' => 'Completed',
         'underReview' => 'Under Review',
         'refunded'  => 'Refunded',
-        
+
     ];
 
 
