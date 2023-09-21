@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
     use HasFactory, HasUuids;
 
-    const STATUS_OPTIONS = 
-    [
+    protected $table = 'events';
+    protected $guarded = [];
 
+    const STATUS_OPTIONS =
+    [
         'drafted' => 'Drafted',
         'published' => 'Published',
-
     ];
 
     public function ticketTypes(): HasMany
@@ -25,8 +26,8 @@ class Event extends Model
         return $this->hasMany(TicketType::class);
     }
 
-    public function users(): BelongsToMany
+    public function users(): BelongsTo
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
