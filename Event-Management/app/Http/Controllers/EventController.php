@@ -15,7 +15,7 @@ class EventController extends Controller
       */
      public function index()
      {
-          $events = Event::with('users')->paginate(10);
+          $events = Event::paginate(10);
 
           if (!$events) {
 
@@ -32,10 +32,11 @@ class EventController extends Controller
       */
      public function store(Request $request): JsonResponse
      {
+
           $validated = $request->validate([
 
-               'event_name' => ['required', 'string', 'max:255'],
-               'description' => ['required', 'string', 'max:600'],
+               'event_name' => ['required', 'string', 'unique:events', 'max:255'],
+               'description' => ['required', 'string',  'max:600'],
                'start_date' => ['required', 'date'],
                'end_date' => ['required', 'after:start_date'],
                'location' => ['required', 'string', 'max:255'],
@@ -43,6 +44,7 @@ class EventController extends Controller
                'status' => ['required', 'string'],
 
           ]);
+
 
           $event = new Event([
 
@@ -76,21 +78,27 @@ class EventController extends Controller
           return response()->json([$eventDetail], Response::HTTP_OK);
      }
 
-     /**
-      * Show the form for editing the specified resource.
-      */
-     public function edit(Event $event)
-     {
-          //
-     }
 
      /**
       * Update the specified resource in storage.
       */
-     public function update(Request $request, Event $event)
+     public function update(Request $request, $id): JsonResponse
      {
-          //
+          $eventToUpdate = Event::findOrFail($id);
+
+          if (!$eventToUpdate) {
+               return response()->json(['message' => "Event :{$eventToUpdate->event_name} can not be found"], Response::HTTP_NOT_FOUND);
+          }
+
+
+          $request->validate(Event::$rules);
+
+          $eventToUpdate->update($request->all());
+
+
+          return response()->json(['message' => "Event : {$eventToUpdate->event_name} successfully updated"], Response::HTTP_OK);
      }
+
 
      /**
       * Remove the specified resource from storage.
