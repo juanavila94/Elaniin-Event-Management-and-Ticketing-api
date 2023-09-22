@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TicketTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::post('events/create', [EventController::class, 'store'])->name('event.create');
     Route::put('events/update/{id}', [EventController::class, 'update'])->name('event.update');
     Route::delete('events/{id}', [EventController::class, 'destroy'])->name('event.delete');
+});
+
+Route::middleware('auth')->prefix('ticketTypes')->group(function () {
+
+    Route::post('create', [TicketTypeController::class, 'store'])->name('ticketType.create');
+    Route::put('update/{id}', [TicketTypeController::class, 'update'])->name('ticketType.update');
+    Route::delete('/{id}', [TicketTypeController::class, 'destroy'])->name('ticketType.destroy');
 });
 
 require __DIR__ . '/auth.php';

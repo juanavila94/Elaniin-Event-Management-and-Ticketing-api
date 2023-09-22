@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('ticket_type_name');
-            $table->integer('quantity');
+            $table->integer('available_quantity')->default(0);
+            $table->integer('sold_quantity')->default(0);
             $table->float('value', 8, 2);
             $table->string('description');
             $table->date('sale_start_date');

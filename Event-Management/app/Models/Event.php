@@ -23,6 +23,7 @@ class Event extends Model
 
     static $rules = 
     [
+
     'event_name' => 'required', 'string', 'max:255',
     'description' => 'required', 'string', 'max:600',
     'start_date' => 'required', 'date',
@@ -30,6 +31,7 @@ class Event extends Model
     'location' => 'required', 'string', 'max:255',
     'header_image' => 'required', 'string',
     'status' => 'required', 'string',
+    
      ];
 
     public function ticketTypes(): HasMany
