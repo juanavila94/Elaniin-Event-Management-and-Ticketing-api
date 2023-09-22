@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class TicketType extends Model
 {
     use HasFactory, HasUuids;
+    protected $table = "ticket_types";
+    protected $guarded = [];
+
 
     public function events(): BelongsTo
     {
@@ -19,6 +22,6 @@ class TicketType extends Model
 
     public function tickets(): HasMany
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'ticket_type_id');
     }
 }

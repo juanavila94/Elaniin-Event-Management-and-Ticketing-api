@@ -113,7 +113,7 @@ class EventController extends Controller
                ->join('tickets', 'ticket_types.id', '=', 'tickets.ticket_type_id')
                ->join('orders', 'tickets.order_id', '=', 'orders.id')
                ->where('events.id', $event->id)
-               ->where('orders.status', ['active', 'refunded'])
+               ->whereIn('orders.status', ['active', 'refunded'])
                ->count();
 
           if ($eventOrders > 0) {
