@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->date('purchase_date');
             $table->string('status');
+            $table->integer('total_amount');
             $table->foreignUuid('attendee_id')
                 ->constrained()
                 ->cascadeOnUpdate()
