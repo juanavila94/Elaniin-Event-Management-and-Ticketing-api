@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Attendee extends Model
 {
     use HasFactory, HasUuids;
-
+    
     protected $table = 'attendees';
     protected $guarded = [];
 

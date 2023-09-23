@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketTypeController;
@@ -44,6 +45,13 @@ Route::middleware('auth')->prefix('ticketTypes')->group(function () {
     Route::post('create', [TicketTypeController::class, 'store'])->name('ticketType.create');
     Route::put('update/{id}', [TicketTypeController::class, 'update'])->name('ticketType.update');
     Route::delete('/{id}', [TicketTypeController::class, 'destroy'])->name('ticketType.destroy');
+});
+
+
+Route::prefix('attendees')->group(function () {
+    Route::get('events/{id}', [EventController::class, 'show'])->name('attendee.event.show');
+    Route::get('events/list', [AttendeeController::class, 'index'])->name('attendee.event.index');
+    Route::post('create', [AttendeeController::class, 'store'])->name('attendee.create');
 });
 
 require __DIR__ . '/auth.php';
