@@ -12,19 +12,7 @@ use Illuminate\Support\Facades\DB;
 class TicketTypeController extends Controller
 {
 
-    //  /**
-    //   * Display a listing of the resource.
-    //   */
-    //  public function index()
-    //  {
-    //       $events = Event::paginate(10);
-
-    //       if (!$events) {
-
-    //            return response()->json(['error' => 'There are no events available']);
-    //       }
-    //       return response()->json($events);
-    //  }
+  
     /**
      * Store a newly created resource in storage.
      */
@@ -78,8 +66,6 @@ class TicketTypeController extends Controller
             );
         }
 
-
-        // $request->validate((new TicketTypeStoreRequest)->rules());
 
         $ticketTypeToUpdate->update($request->all());
 
