@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AttendeeController;
+use App\Http\Controllers\CSRFTokenController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController as ControllersPaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketTypeController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Cashier\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +46,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->prefix('ticketTypes')->group(function () {
 
+    Route::get('list', [TicketTypeController::class, 'index'])->name('ticketTypes.index');
     Route::post('create', [TicketTypeController::class, 'store'])->name('ticketType.create');
     Route::put('update/{id}', [TicketTypeController::class, 'update'])->name('ticketType.update');
     Route::delete('/{id}', [TicketTypeController::class, 'destroy'])->name('ticketType.destroy');
@@ -52,11 +56,10 @@ Route::middleware('auth')->prefix('ticketTypes')->group(function () {
 Route::prefix('attendees')->group(function () {
     Route::get('events/{id}', [EventController::class, 'show'])->name('attendee.event.show');
     Route::get('events/list', [AttendeeController::class, 'index'])->name('attendee.event.index');
-    Route::post('create', [AttendeeController::class, 'store'])->name('attendee.create');
 });
 
 
 
-// Route::get('payment/{id}', 'PaymentController@show')->name('payment');
+
 
 require __DIR__ . '/auth.php';

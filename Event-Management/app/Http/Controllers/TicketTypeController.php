@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TicketTypeStoreRequest;
 use App\Models\TicketType;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class TicketTypeController extends Controller
 {
+
+    public function index(): JsonResponse
+    {
+        $ticketTypes = TicketType::paginate(10);
+
+        if (!$ticketTypes) {
+
+            return response()->json(['error' => 'There are no ticket Types available']);
+        }
+        return response()->json([$ticketTypes], Response::HTTP_OK);
+    }
 
 
     /**
