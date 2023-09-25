@@ -12,13 +12,22 @@ use Illuminate\Support\Facades\DB;
 class TicketTypeController extends Controller
 {
 
-  
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(TicketTypeStoreRequest $request): JsonResponse
     {
+        $maxTicketTypes = 10;
 
+        $ticketTypes = TicketType::count();
+
+        if ($ticketTypes > $maxTicketTypes) {
+            return response()->json(
+                ['message' => 'You have reached the maximum limit of Ticket Types.'],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
         $validated = $request->validated();
 
         $ticketType = new TicketType([

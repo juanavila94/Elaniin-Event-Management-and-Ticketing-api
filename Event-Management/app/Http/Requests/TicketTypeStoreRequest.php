@@ -25,7 +25,7 @@ class TicketTypeStoreRequest extends FormRequest
         return [
 
             'ticket_type_name' => 'required|string|max:255',
-            'available_quantity' => 'required|integer',
+            'available_quantity' => 'required|integer|min:0',
             'sold_quantity' => 'required|integer',
             'value' => 'required|numeric',
             'description' => 'required|string|max:600',
