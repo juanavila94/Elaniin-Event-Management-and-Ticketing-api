@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseService
 {
-    public function createOrder( array $attendeeData, array $validatedTickets): JsonResponse
+    public function createOrder( array $attendeeData, array $validatedTickets): Order
     {
       
         DB::beginTransaction();
@@ -37,11 +37,10 @@ class PurchaseService
             $ticket = new Ticket();
             $ticket->ticket_type_id = $ticketData['ticket_type_id'];
             $ticket->quantity = $ticketData['quantity'];
-            $attendeeData['attendee_name'] ?? $attendeeData['first_name'];
+            $ticket->attendee_name = $attendeeData['first_name'];
             $order->tickets()->save($ticket);
 
           
-            $ticketType->decrement('available_quantity', $ticketData['quantity']);
         }
 
        
@@ -75,7 +74,7 @@ class PurchaseService
         DB::commit();
 
       
-        return response()->json(['message' => 'Order successfully created'], Response::HTTP_ACCEPTED);
+        return $order;
     }
 } 
 ?>

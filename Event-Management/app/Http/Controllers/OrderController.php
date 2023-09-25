@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AttendeeValidatorRequest;
 use App\Models\Order;
+use App\Services\OrderResponseService;
 use App\Services\PurchaseService;
 use App\Services\TicketValidator;
 use Illuminate\Http\JsonResponse;
@@ -28,7 +29,7 @@ class OrderController extends Controller
 
 
 
-    public function store(Request $request, AttendeeValidatorRequest $attendeeRequestValidation, TicketValidator $ticketValidator, PurchaseService $purchaseService): JsonResponse
+    public function store(Request $request, AttendeeValidatorRequest $attendeeRequestValidation, TicketValidator $ticketValidator, PurchaseService $purchaseService, OrderResponseService $orderResponse): JsonResponse
     {
 
 
@@ -47,7 +48,12 @@ class OrderController extends Controller
 
 
         $order = $purchaseService->createOrder($request->all(), $request->input('tickets'));
+        
 
-        return response()->json(['message' => "Everything went OK!  Order details: ", 'order' => $order], Response::HTTP_ACCEPTED);
+        $response = $orderResponse->buildOrderResponse($order);
+
+    
+
+        return response()->json(['message' => "Everything went OK!  Order details: ", $response], Response::HTTP_ACCEPTED);
     }
 }
