@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendeeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketTypeController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,8 @@ Route::prefix('attendees')->group(function () {
     Route::post('create', [AttendeeController::class, 'store'])->name('attendee.create');
 });
 
-Route::get('payment/{id}', 'PaymentController@show')->name('payment');
+
+
+// Route::get('payment/{id}', 'PaymentController@show')->name('payment');
 
 require __DIR__ . '/auth.php';

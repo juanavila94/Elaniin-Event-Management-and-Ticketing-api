@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Order extends Model
 {
     use HasFactory, HasUuids;
+    protected $table = 'orders';
+    protected $guarded = [];
 
     const STATUS_OPTIONS =
     [
