@@ -54,4 +54,6 @@ Route::prefix('attendees')->group(function () {
     Route::post('create', [AttendeeController::class, 'store'])->name('attendee.create');
 });
 
+Route::get('payment/{id}', 'PaymentController@show')->name('payment');
+
 require __DIR__ . '/auth.php';
