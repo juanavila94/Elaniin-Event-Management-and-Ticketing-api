@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Attendee;
+use App\Services\InvoiceService;
 use App\Services\OrderResponseService;
 use App\Services\PurchaseService;
 use App\Services\TicketValidator;
@@ -30,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
             return new OrderResponseService();
         });
         
+        $this->app->singleton(InvoiceService::class, function () {
+            return new InvoiceService();
+        });
     }
 
     /**

@@ -2,35 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendee;
 use App\Models\Order;
+use App\Services\InvoiceService;
+use App\Services\OrderResponseService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
-    public function payment(Request $request): JsonResponse
+    public function payment( $order_id, InvoiceService $invoiceService, OrderResponseService $orderResponse ): JsonResponse
     {
-        Stripe::setApiKey(config(env('STRIPE_KEY')));
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-          $orderId = $request->json('id');
 
-        if (!$orderId) {
+        if (!$order_id) {
             return response()->json(['error' => 'Request must provide an order_id'], Response::HTTP_NOT_FOUND);
         }
 
 
-        $totalAmount = Order::find($orderId)->total_amount;
+        $totalAmount = Order::find($order_id)->total_amount;
 
-    
+
         $paymentIntent = PaymentIntent::create([
             'amount' => $totalAmount * 100,
-            'currency' => 'usd', 
+            'currency' => 'usd',
             'payment_method_types' => ['card'],
         ]);
+
+        $order = Order::find($order_id);
+        $invoiceData = $orderResponse->buildOrderResponse($order);
+        $invoiceService->createInvoice($invoiceData);
 
         return response()->json([
             'message' => ' Payment: successful',
@@ -38,5 +41,4 @@ class PaymentController extends Controller
             'total_amount' => $totalAmount,
         ], Response::HTTP_OK);
     }
-    
 }
