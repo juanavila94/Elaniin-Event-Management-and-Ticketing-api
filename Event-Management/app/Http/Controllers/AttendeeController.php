@@ -14,7 +14,7 @@ class AttendeeController extends Controller
 
     public function index(): JsonResponse
     {
-        $events = Event::paginate(10);
+        $events = Event::get();
 
         if (!$events) {
 

@@ -13,7 +13,16 @@ class Event extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'events';
-    protected $guarded = [];
+    protected $fillable = [
+        'event_name',
+        'description',
+        'start_date',
+        'end_date',
+        'location',
+        'header_image',
+        'status',
+        'user_id'
+    ];
 
     const STATUS_OPTIONS =
     [
@@ -21,18 +30,18 @@ class Event extends Model
         'published' => 'Published',
     ];
 
-    static $rules = 
+    static $rules =
     [
 
-    'event_name' => 'required', 'string', 'max:255',
-    'description' => 'required', 'string', 'max:600',
-    'start_date' => 'required', 'date',
-    'end_date' => 'required', 'after:start_date',
-    'location' => 'required', 'string', 'max:255',
-    'header_image' => 'required', 'string',
-    'status' => 'required', 'string',
-    
-     ];
+        'event_name' => 'required', 'string', 'max:255',
+        'description' => 'required', 'string', 'max:600',
+        'start_date' => 'required', 'date',
+        'end_date' => 'required', 'after:start_date',
+        'location' => 'required', 'string', 'max:255',
+        'header_image' => 'required', 'string',
+        'status' => 'required', 'string',
+
+    ];
 
     public function ticketTypes(): HasMany
     {

@@ -55,7 +55,7 @@ Route::middleware('auth')->prefix('ticketTypes')->group(function () {
 
 Route::prefix('attendees')->group(function () {
     Route::get('events/{id}', [EventController::class, 'show'])->name('attendee.event.show');
-    Route::get('events/list', [AttendeeController::class, 'index'])->name('attendee.event.index');
+    Route::get('event/list', [EventController::class, 'index'])->name('attendee.event.index');
 });
 
 
